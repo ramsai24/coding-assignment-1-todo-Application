@@ -31,10 +31,10 @@ POST http://localhost:3000/todos/
 Content-Type:application/json 
 
 {
-    "id":6,
+    "id":10,
     "todo":"Finalize event theme",
     "priority":"LOW",
-    "status":"TO DO",
+    "status":"DONE", 
     "category":"HOME",
     "dueDate":"2021-02-22"
 }

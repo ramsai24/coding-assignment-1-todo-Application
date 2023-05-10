@@ -250,8 +250,8 @@ app.get("/agenda/", async (request, response) => {
       })
     );
   } else {
-    response.send("Invalid Due Date");
     response.status(400);
+    response.send("Invalid Due Date");
   }
 });
 
@@ -262,17 +262,31 @@ app.post("/todos/", async (request, response) => {
 
   console.log(id, todo, priority, status, category, dueDate);
 
-  const createTodoQuery = `
-  INSERT INTO 
-        todo (id, todo, priority, status, category, due_date) 
-    VALUES 
-                (${id}, '${todo}', '${priority}', '${status}', '${category}', '${dueDate}');`;
+  if (status === undefined) {
+    response.status(400);
+    response.send("Invalid Todo Status");
+  } else if (priority === undefined) {
+    response.status(400);
+    response.send("Invalid Todo Priority");
+  } else if (category === undefined) {
+    response.status(400);
+    response.send("Invalid Todo Category");
+  } else if (dueDate === undefined) {
+    response.status(400);
+    response.send("Invalid Due Date");
+  } else {
+    const createTodoQuery = `
+    INSERT INTO 
+            todo (id, todo, priority, status, category, due_date) 
+        VALUES 
+                    (${id}, '${todo}', '${priority}', '${status}', '${category}', '${dueDate}');`;
 
-  const updateTodoDB = await db.run(createTodoQuery);
+    const updateTodoDB = await db.run(createTodoQuery);
 
-  console.log(updateTodoDB.lastID);
+    console.log(updateTodoDB.lastID);
 
-  response.send("Todo Successfully Added");
+    response.send("Todo Successfully Added");
+  }
 });
 
 //API 5
@@ -298,7 +312,7 @@ app.put("/todos/:todoId", async (request, response) => {
       UPDATE todo SET priority = "${priority}" WHERE id = ${todoId};`;
 
     await db.run(priorityQuery);
-    response.send("Proirity Updated");
+    response.send("Priority Updated");
   }
 
   //scenario 3
@@ -326,6 +340,18 @@ app.put("/todos/:todoId", async (request, response) => {
 
     await db.run(dueDateQuery);
     response.send("Due Date Updated");
+  } else if (status === undefined) {
+    response.status(400);
+    response.send("Invalid Todo Status");
+  } else if (priority === undefined) {
+    response.status(400);
+    response.send("Invalid Todo Priority");
+  } else if (category === undefined) {
+    response.status(400);
+    response.send("Invalid Todo Category");
+  } else if (dueDate === undefined) {
+    response.status(400);
+    response.send("Invalid Due Date");
   }
 });
 
