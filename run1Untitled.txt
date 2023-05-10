@@ -1,0 +1,773 @@
+Tests for Operations on Todo Application database
+
+32
+20
+12
+An Express instance should be exported from the 'app.js' file using the default export syntax
+2 ms 
+The GET request to the path '/todos/?status=TO%20DO' should return the list of all todos whose status is 'TO DO' as a response
+32 ms 
+The GET request to the path '/todos/?priority=HIGH' should return the list of all todos whose priority is 'HIGH' as a response
+7 ms 
+The GET request to the path '/todos/?priority=HIGH&status=IN%20PROGRESS' should return the list of all todos whose priority is 'HIGH' and status is 'IN PROGRESS' as a response
+6 ms 
+The GET request to the path '/todos/?category=WORK&status=DONE' should return the list of all todos whose category is 'WORK' and status is 'DONE' as a response
+8 ms 
+The GET request to the path '/todos/?category=LEARNING&priority=HIGH' should return the list of all todos whose category is 'LEARNING' and priority is 'HIGH' as a response
+8 ms 
+The GET request to the path '/todos/?category=HOME' should return the list of all todos whose category is 'HOME' as a response
+5 ms 
+The GET request to the path '/todos/?search_q=Buy' should return the list of all todos whose todo contains 'Buy' text as a response
+7 ms 
+The GET request to the path '/todos/:todoId/' should return a specific todo based on the todo ID as a response
+4 ms 
+The GET request to the path '/agenda/?date=:date' should return a list of all todos of the specific date as a response upon success
+9 ms 
+The GET request to the path '/todos/' with invalid todo status should return '400' as status code and 'Invalid Todo Status' text as a response to the request
+5 ms 
+The GET request to the path '/todos/' with invalid todo priority should return '400' as status code and 'Invalid Todo Priority' text as a response to the request
+5 ms 
+The GET request to the path '/todos/' with invalid todo category should return '400' as status code and 'Invalid Todo Category' text as a response to the request
+4 ms 
+The GET request to the path '/agenda/' with an invalid date query should return '400' as status code and 'Invalid Due Date' text as a response to the request
+6 ms 
+The POST request to the path '/todos/' should return the 'Todo Successfully Added' text as a response upon success
+1222 ms 
+The database should be updated on the post request
+18 ms 
+The POST request to the path '/todos/' with invalid todo status should return '400' as status code and 'Invalid Todo Status' text as a response to the request
+210 ms 
+The POST request to the path '/todos/' with invalid todo priority should return '400' as status code and 'Invalid Todo Priority' text as a response to the request
+209 ms 
+The POST request to the path '/todos/' with invalid todo category should return '400' as status code and 'Invalid Todo Category' text as a response to the request
+212 ms 
+The POST request to the path '/todos/' with invalid due date should return '400' as status code and 'Invalid Due Date' text as a response to the request
+249 ms 
+The PUT request to the path '/todos/:todoId/' with 'status' property in the body should return the 'Status Updated' text as a response upon success
+214 ms 
+The PUT request to the path '/todos/:todoId/' with 'priority' property in the body should return the 'Priority Updated' text as a response upon success
+229 ms 
+The PUT request to the path '/todos/:todoId/' with 'todo' property in the body should return the 'Todo Updated' text as a response upon success
+222 ms 
+The PUT request to the path '/todos/:todoId/' with 'category' property in the body should return the 'Category Updated' text as a response upon success
+203 ms 
+The PUT request to the path '/todos/:todoId/' with 'dueDate' property in the body should return the 'Due Date Updated' text as a response upon success
+287 ms 
+The database should be updated on the put request
+4 ms 
+The PUT request to the path '/todos/:todoId/' with invalid due date should return '400' as status code and 'Invalid Due Date' text as a response to the request
+270 ms 
+The PUT request to the path '/todos/:todoId/' with invalid status should return '400' as status code and 'Invalid Todo Status' text as a response to the request
+242 ms 
+The PUT request to the path '/todos/:todoId/' with invalid priority should return '400' as status code and 'Invalid Todo Priority' text as a response to the request
+254 ms 
+The PUT request to the path '/todos/:todoId/' with invalid category should return '400' as status code and 'Invalid Todo Category' text as a response to the request
+243 ms 
+The DELETE request to the path '/todos/:todoId/' should return 'Todo Deleted' text as a response upon success
+1015 ms 
+The database should be updated on the delete request
+
+
+
+<html lang="en"><head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>ccbp test reporter</title>
+            <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+	        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+            <script src="https://kit.fontawesome.com/522ee478c4.js" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine.js"></script>
+            <script src="js/view.js"></script>
+        </head><body><div id="test-results">{
+  &quot;numFailedTestSuites&quot;: 1,
+  &quot;numFailedTests&quot;: 12,
+  &quot;numPassedTestSuites&quot;: 0,
+  &quot;numPassedTests&quot;: 20,
+  &quot;numPendingTestSuites&quot;: 0,
+  &quot;numPendingTests&quot;: 0,
+  &quot;numRuntimeErrorTestSuites&quot;: 0,
+  &quot;numTodoTests&quot;: 0,
+  &quot;numTotalTestSuites&quot;: 1,
+  &quot;numTotalTests&quot;: 32,
+  &quot;openHandles&quot;: [],
+  &quot;snapshot&quot;: {
+    &quot;added&quot;: 0,
+    &quot;didUpdate&quot;: false,
+    &quot;failure&quot;: false,
+    &quot;filesAdded&quot;: 0,
+    &quot;filesRemoved&quot;: 0,
+    &quot;filesRemovedList&quot;: [],
+    &quot;filesUnmatched&quot;: 0,
+    &quot;filesUpdated&quot;: 0,
+    &quot;matched&quot;: 0,
+    &quot;total&quot;: 0,
+    &quot;unchecked&quot;: 0,
+    &quot;uncheckedKeysByFile&quot;: [],
+    &quot;unmatched&quot;: 0,
+    &quot;updated&quot;: 0
+  },
+  &quot;startTime&quot;: 1683748584636,
+  &quot;success&quot;: false,
+  &quot;testResults&quot;: [
+    {
+      &quot;leaks&quot;: false,
+      &quot;numFailingTests&quot;: 12,
+      &quot;numPassingTests&quot;: 20,
+      &quot;numPendingTests&quot;: 0,
+      &quot;numTodoTests&quot;: 0,
+      &quot;openHandles&quot;: [],
+      &quot;perfStats&quot;: {
+        &quot;end&quot;: 1683748592145,
+        &quot;runtime&quot;: 6959,
+        &quot;slow&quot;: true,
+        &quot;start&quot;: 1683748585186
+      },
+      &quot;skipped&quot;: false,
+      &quot;snapshot&quot;: {
+        &quot;added&quot;: 0,
+        &quot;fileDeleted&quot;: false,
+        &quot;matched&quot;: 0,
+        &quot;unchecked&quot;: 0,
+        &quot;unmatched&quot;: 0,
+        &quot;updated&quot;: 0,
+        &quot;uncheckedKeys&quot;: []
+      },
+      &quot;testFilePath&quot;: &quot;/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js&quot;,
+      &quot;testResults&quot;: [
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 2,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseAn Express instance should be exported from the &#x27;app.js&#x27; file using the default export syntax&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;An Express instance should be exported from the &#x27;app.js&#x27; file using the default export syntax&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_1&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 32,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/?status=TO%20DO&#x27; should return the list of all todos whose status is &#x27;TO DO&#x27; as a response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/?status=TO%20DO&#x27; should return the list of all todos whose status is &#x27;TO DO&#x27; as a response&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_2&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 7,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/?priority=HIGH&#x27; should return the list of all todos whose priority is &#x27;HIGH&#x27; as a response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/?priority=HIGH&#x27; should return the list of all todos whose priority is &#x27;HIGH&#x27; as a response&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_3&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 6,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/?priority=HIGH&amp;status=IN%20PROGRESS&#x27; should return the list of all todos whose priority is &#x27;HIGH&#x27; and status is &#x27;IN PROGRESS&#x27; as a response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/?priority=HIGH&amp;status=IN%20PROGRESS&#x27; should return the list of all todos whose priority is &#x27;HIGH&#x27; and status is &#x27;IN PROGRESS&#x27; as a response&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_4&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 8,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/?category=WORK&amp;status=DONE&#x27; should return the list of all todos whose category is &#x27;WORK&#x27; and status is &#x27;DONE&#x27; as a response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/?category=WORK&amp;status=DONE&#x27; should return the list of all todos whose category is &#x27;WORK&#x27; and status is &#x27;DONE&#x27; as a response&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_5&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 8,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/?category=LEARNING&amp;priority=HIGH&#x27; should return the list of all todos whose category is &#x27;LEARNING&#x27; and priority is &#x27;HIGH&#x27; as a response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/?category=LEARNING&amp;priority=HIGH&#x27; should return the list of all todos whose category is &#x27;LEARNING&#x27; and priority is &#x27;HIGH&#x27; as a response&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_6&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 5,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/?category=HOME&#x27; should return the list of all todos whose category is &#x27;HOME&#x27; as a response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/?category=HOME&#x27; should return the list of all todos whose category is &#x27;HOME&#x27; as a response&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_7&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 7,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/?search_q=Buy&#x27; should return the list of all todos whose todo contains &#x27;Buy&#x27; text as a response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/?search_q=Buy&#x27; should return the list of all todos whose todo contains &#x27;Buy&#x27; text as a response&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_8&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 4,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/:todoId/&#x27; should return a specific todo based on the todo ID as a response&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/:todoId/&#x27; should return a specific todo based on the todo ID as a response&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_9&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 9,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {
+                &quot;expected&quot;: [
+                  {
+                    &quot;id&quot;: 5,
+                    &quot;todo&quot;: &quot;Submit the report&quot;,
+                    &quot;priority&quot;: &quot;LOW&quot;,
+                    &quot;status&quot;: &quot;TO DO&quot;,
+                    &quot;category&quot;: &quot;WORK&quot;,
+                    &quot;dueDate&quot;: &quot;2021-04-02&quot;
+                  }
+                ],
+                &quot;actual&quot;: [],
+                &quot;showDiff&quot;: true
+              },
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected [\n  {\n    id: 5,\n    todo: &#x27;Submit the report&#x27;,\n    priority: &#x27;LOW&#x27;,\n    status: &#x27;TO DO&#x27;,\n    category: &#x27;WORK&#x27;,\n    dueDate: &#x27;2021-04-02&#x27;\n  }\n] response body, got []&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected [\n  {\n    id: 5,\n    todo: &#x27;Submit the report&#x27;,\n    priority: &#x27;LOW&#x27;,\n    status: &#x27;TO DO&#x27;,\n    category: &#x27;WORK&#x27;,\n    dueDate: &#x27;2021-04-02&#x27;\n  }\n] response body, got []\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:207:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at error (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:329:13)\n    at Test.Object.&lt;anonymous&gt;.Test._assertBody (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:233:14)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected [\n  {\n    id: 5,\n    todo: &#x27;Submit the report&#x27;,\n    priority: &#x27;LOW&#x27;,\n    status: &#x27;TO DO&#x27;,\n    category: &#x27;WORK&#x27;,\n    dueDate: &#x27;2021-04-02&#x27;\n  }\n] response body, got []\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:207:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at error (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:329:13)\n    at Test.Object.&lt;anonymous&gt;.Test._assertBody (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:233:14)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/agenda/?date=:date&#x27; should return a list of all todos of the specific date as a response upon success&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/agenda/?date=:date&#x27; should return a list of all todos of the specific date as a response upon success&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_10&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 5,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/&#x27; with invalid todo status should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Status&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/&#x27; with invalid todo status should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Status&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_11&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 5,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/&#x27; with invalid todo priority should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Priority&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/&#x27; with invalid todo priority should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Priority&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_12&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 4,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/todos/&#x27; with invalid todo category should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Category&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/todos/&#x27; with invalid todo category should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Category&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_13&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 6,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:255:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:255:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe GET request to the path &#x27;/agenda/&#x27; with an invalid date query should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The GET request to the path &#x27;/agenda/&#x27; with an invalid date query should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_14&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 1222,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe POST request to the path &#x27;/todos/&#x27; should return the &#x27;Todo Successfully Added&#x27; text as a response upon success&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The POST request to the path &#x27;/todos/&#x27; should return the &#x27;Todo Successfully Added&#x27; text as a response upon success&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_15&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 18,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {
+                &quot;matcherResult&quot;: {
+                  &quot;actual&quot;: {
+                    &quot;id&quot;: 6,
+                    &quot;todo&quot;: &quot;Review codes&quot;,
+                    &quot;priority&quot;: &quot;MEDIUM&quot;,
+                    &quot;status&quot;: &quot;TO DO&quot;,
+                    &quot;category&quot;: &quot;WORK&quot;,
+                    &quot;due_date&quot;: &quot;2021-9-22&quot;
+                  },
+                  &quot;expected&quot;: {
+                    &quot;id&quot;: 6,
+                    &quot;todo&quot;: &quot;Review codes&quot;,
+                    &quot;priority&quot;: &quot;MEDIUM&quot;,
+                    &quot;category&quot;: &quot;WORK&quot;,
+                    &quot;status&quot;: &quot;TO DO&quot;,
+                    &quot;due_date&quot;: &quot;2021-09-22&quot;
+                  },
+                  &quot;name&quot;: &quot;toEqual&quot;,
+                  &quot;pass&quot;: false
+                }
+              },
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 1\n\n  Object {\n    \&quot;category\&quot;: \&quot;WORK\&quot;,\n-   \&quot;due_date\&quot;: \&quot;2021-09-22\&quot;,\n+   \&quot;due_date\&quot;: \&quot;2021-9-22\&quot;,\n    \&quot;id\&quot;: 6,\n    \&quot;priority\&quot;: \&quot;MEDIUM\&quot;,\n    \&quot;status\&quot;: \&quot;TO DO\&quot;,\n    \&quot;todo\&quot;: \&quot;Review codes\&quot;,\n  }&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 1\n\n  Object {\n    \&quot;category\&quot;: \&quot;WORK\&quot;,\n-   \&quot;due_date\&quot;: \&quot;2021-09-22\&quot;,\n+   \&quot;due_date\&quot;: \&quot;2021-9-22\&quot;,\n    \&quot;id\&quot;: 6,\n    \&quot;priority\&quot;: \&quot;MEDIUM\&quot;,\n    \&quot;status\&quot;: \&quot;TO DO\&quot;,\n    \&quot;todo\&quot;: \&quot;Review codes\&quot;,\n  }\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:282:65)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expect(received).toEqual(expected) // deep equality\n\n- Expected  - 1\n+ Received  + 1\n\n  Object {\n    \&quot;category\&quot;: \&quot;WORK\&quot;,\n-   \&quot;due_date\&quot;: \&quot;2021-09-22\&quot;,\n+   \&quot;due_date\&quot;: \&quot;2021-9-22\&quot;,\n    \&quot;id\&quot;: 6,\n    \&quot;priority\&quot;: \&quot;MEDIUM\&quot;,\n    \&quot;status\&quot;: \&quot;TO DO\&quot;,\n    \&quot;todo\&quot;: \&quot;Review codes\&quot;,\n  }\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:282:65)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe database should be updated on the post request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The database should be updated on the post request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_16&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 210,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:304:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:304:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe POST request to the path &#x27;/todos/&#x27; with invalid todo status should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Status&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The POST request to the path &#x27;/todos/&#x27; with invalid todo status should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Status&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_17&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 209,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:323:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:323:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe POST request to the path &#x27;/todos/&#x27; with invalid todo priority should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Priority&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The POST request to the path &#x27;/todos/&#x27; with invalid todo priority should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Priority&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_18&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 212,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:341:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:341:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe POST request to the path &#x27;/todos/&#x27; with invalid todo category should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Category&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The POST request to the path &#x27;/todos/&#x27; with invalid todo category should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Category&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_19&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 249,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:359:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:359:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe POST request to the path &#x27;/todos/&#x27; with invalid due date should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The POST request to the path &#x27;/todos/&#x27; with invalid due date should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_20&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 214,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;status&#x27; property in the body should return the &#x27;Status Updated&#x27; text as a response upon success&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;status&#x27; property in the body should return the &#x27;Status Updated&#x27; text as a response upon success&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_21&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 229,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {
+                &quot;expected&quot;: &quot;Priority Updated&quot;,
+                &quot;actual&quot;: {},
+                &quot;showDiff&quot;: true
+              },
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected &#x27;Priority Updated&#x27; response body, got &#x27;Proirity Updated&#x27;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected &#x27;Priority Updated&#x27; response body, got &#x27;Proirity Updated&#x27;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:387:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at error (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:329:13)\n    at Test.Object.&lt;anonymous&gt;.Test._assertBody (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:246:14)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected &#x27;Priority Updated&#x27; response body, got &#x27;Proirity Updated&#x27;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:387:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at error (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:329:13)\n    at Test.Object.&lt;anonymous&gt;.Test._assertBody (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:246:14)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;priority&#x27; property in the body should return the &#x27;Priority Updated&#x27; text as a response upon success&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;priority&#x27; property in the body should return the &#x27;Priority Updated&#x27; text as a response upon success&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_22&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 222,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;todo&#x27; property in the body should return the &#x27;Todo Updated&#x27; text as a response upon success&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;todo&#x27; property in the body should return the &#x27;Todo Updated&#x27; text as a response upon success&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_23&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 203,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;category&#x27; property in the body should return the &#x27;Category Updated&#x27; text as a response upon success&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;category&#x27; property in the body should return the &#x27;Category Updated&#x27; text as a response upon success&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_24&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 287,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;dueDate&#x27; property in the body should return the &#x27;Due Date Updated&#x27; text as a response upon success&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;dueDate&#x27; property in the body should return the &#x27;Due Date Updated&#x27; text as a response upon success&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_25&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 4,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe database should be updated on the put request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The database should be updated on the put request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_26&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 270,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:452:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:452:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid due date should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid due date should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_27&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 242,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:466:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:466:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid status should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Status&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid status should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Status&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_28&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 254,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:479:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:479:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid priority should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Priority&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid priority should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Priority&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_29&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 243,
+          &quot;failureDetails&quot;: [
+            {
+              &quot;actual&quot;: &quot;&quot;,
+              &quot;error&quot;: {},
+              &quot;expected&quot;: &quot;&quot;,
+              &quot;matcherName&quot;: &quot;&quot;,
+              &quot;message&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;&quot;,
+              &quot;passed&quot;: false,
+              &quot;stack&quot;: &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:493:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+            }
+          ],
+          &quot;failureMessages&quot;: [
+            &quot;Error: expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n    at Object.&lt;anonymous&gt; (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/index.test.js:493:8)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:45:12\n    at new Promise (&lt;anonymous&gt;)\n    at mapper (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:28:19)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/node_modules/.pnpm/jest-jasmine2@26.6.3/node_modules/jest-jasmine2/build/queueRunner.js:75:41\n    at processTicksAndRejections (internal/process/task_queues.js:95:5)\n----\n    at Test.Object.&lt;anonymous&gt;.Test._assertStatus (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n    at /home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n    at Test.Object.&lt;anonymous&gt;.Test._assertFunction (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n    at Test.Object.&lt;anonymous&gt;.Test.assert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n    at Server.localAssert (/home/workspace/.tmp/nodejs/coding-assignments/coding-assignment-1/.tests/node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n    at Object.onceWrapper (events.js:519:28)\n    at Server.emit (events.js:400:28)\n    at emitCloseNT (net.js:1677:8)\n    at processTicksAndRejections (internal/process/task_queues.js:81:21)&quot;
+          ],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid category should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Category&#x27; text as a response to the request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;failed&quot;,
+          &quot;title&quot;: &quot;The PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid category should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Category&#x27; text as a response to the request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_30&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 1015,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe DELETE request to the path &#x27;/todos/:todoId/&#x27; should return &#x27;Todo Deleted&#x27; text as a response upon success&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The DELETE request to the path &#x27;/todos/:todoId/&#x27; should return &#x27;Todo Deleted&#x27; text as a response upon success&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_31&quot;
+        },
+        {
+          &quot;ancestorTitles&quot;: [
+            &quot;Tests for Operations on Todo Application database&quot;
+          ],
+          &quot;duration&quot;: 5,
+          &quot;failureDetails&quot;: [],
+          &quot;failureMessages&quot;: [],
+          &quot;fullName&quot;: &quot;Tests for Operations on Todo Application databaseThe database should be updated on the delete request&quot;,
+          &quot;location&quot;: null,
+          &quot;numPassingAsserts&quot;: 0,
+          &quot;status&quot;: &quot;passed&quot;,
+          &quot;title&quot;: &quot;The database should be updated on the delete request&quot;,
+          &quot;id&quot;: &quot;NJSCADOQBS_TEST_32&quot;
+        }
+      ],
+      &quot;failureMessage&quot;: &quot;  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_10:::The GET request to the path &#x27;/agenda/?date=:date&#x27; should return a list of all todos of the specific date as a response upon success\n\n    expected [\n      {\n        id: 5,\n        todo: &#x27;Submit the report&#x27;,\n        priority: &#x27;LOW&#x27;,\n        status: &#x27;TO DO&#x27;,\n        category: &#x27;WORK&#x27;,\n        dueDate: &#x27;2021-04-02&#x27;\n      }\n    ] response body, got []\n\n      205 |       .get(\&quot;/agenda/?date=2021-4-2\&quot;)\n      206 |       .expect(200)\n    &gt; 207 |       .expect([\n          |        ^\n      208 |         {\n      209 |           id: 5,\n      210 |           todo: \&quot;Submit the report\&quot;,\n\n      at Object.&lt;anonymous&gt; (index.test.js:207:8)\n      ----\n      at error (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:329:13)\n      at Test.Object.&lt;anonymous&gt;.Test._assertBody (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:233:14)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_14:::The GET request to the path &#x27;/agenda/&#x27; with an invalid date query should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      253 |     appInstance\n      254 |       .get(\&quot;/agenda/?date=123-AB-21\&quot;)\n    &gt; 255 |       .expect(400)\n          |        ^\n      256 |       .expect(\&quot;Invalid Due Date\&quot;)\n      257 |       .then((error, response) =&gt; {\n      258 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:255:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_16:::The database should be updated on the post request\n\n    expect(received).toEqual(expected) // deep equality\n\n    - Expected  - 1\n    + Received  + 1\n\n      Object {\n        \&quot;category\&quot;: \&quot;WORK\&quot;,\n    -   \&quot;due_date\&quot;: \&quot;2021-09-22\&quot;,\n    +   \&quot;due_date\&quot;: \&quot;2021-9-22\&quot;,\n        \&quot;id\&quot;: 6,\n        \&quot;priority\&quot;: \&quot;MEDIUM\&quot;,\n        \&quot;status\&quot;: \&quot;TO DO\&quot;,\n        \&quot;todo\&quot;: \&quot;Review codes\&quot;,\n      }\n\n      280 |\n      281 |   test(\&quot;:::NJSCADOQBS_TEST_16:::The database should be updated on the post request\&quot;, async () =&gt; {\n    &gt; 282 |     expect(await database.get(`SELECT * FROM todo WHERE id=6`)).toEqual({\n          |                                                                 ^\n      283 |       id: 6,\n      284 |       todo: \&quot;Review codes\&quot;,\n      285 |       priority: \&quot;MEDIUM\&quot;,\n\n      at Object.&lt;anonymous&gt; (index.test.js:282:65)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_17:::The POST request to the path &#x27;/todos/&#x27; with invalid todo status should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Status&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      302 |         dueDate: \&quot;2021-9-22\&quot;,\n      303 |       })\n    &gt; 304 |       .expect(400)\n          |        ^\n      305 |       .expect(\&quot;Invalid Todo Status\&quot;)\n      306 |       .then((error, response) =&gt; {\n      307 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:304:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_18:::The POST request to the path &#x27;/todos/&#x27; with invalid todo priority should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Priority&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      321 |         dueDate: \&quot;2021-9-22\&quot;,\n      322 |       })\n    &gt; 323 |       .expect(400)\n          |        ^\n      324 |       .expect(\&quot;Invalid Todo Priority\&quot;)\n      325 |       .then((error, response) =&gt; {\n      326 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:323:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_19:::The POST request to the path &#x27;/todos/&#x27; with invalid todo category should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Category&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      339 |         dueDate: \&quot;2021-9-22\&quot;,\n      340 |       })\n    &gt; 341 |       .expect(400)\n          |        ^\n      342 |       .expect(\&quot;Invalid Todo Category\&quot;)\n      343 |       .then((error, response) =&gt; {\n      344 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:341:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_20:::The POST request to the path &#x27;/todos/&#x27; with invalid due date should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      357 |         dueDate: \&quot;djbsiu\&quot;,\n      358 |       })\n    &gt; 359 |       .expect(400)\n          |        ^\n      360 |       .expect(\&quot;Invalid Due Date\&quot;)\n      361 |       .then((error, response) =&gt; {\n      362 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:359:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_22:::The PUT request to the path &#x27;/todos/:todoId/&#x27; with &#x27;priority&#x27; property in the body should return the &#x27;Priority Updated&#x27; text as a response upon success\n\n    expected &#x27;Priority Updated&#x27; response body, got &#x27;Proirity Updated&#x27;\n\n      385 |       })\n      386 |       .expect(200)\n    &gt; 387 |       .expect(\&quot;Priority Updated\&quot;)\n          |        ^\n      388 |       .then((error, response) =&gt; {\n      389 |         done();\n      390 |       });\n\n      at Object.&lt;anonymous&gt; (index.test.js:387:8)\n      ----\n      at error (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:329:13)\n      at Test.Object.&lt;anonymous&gt;.Test._assertBody (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:246:14)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_27:::The PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid due date should return &#x27;400&#x27; as status code and &#x27;Invalid Due Date&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      450 |         dueDate: \&quot;2021/??/AS\&quot;,\n      451 |       })\n    &gt; 452 |       .expect(400)\n          |        ^\n      453 |       .expect(\&quot;Invalid Due Date\&quot;)\n      454 |       .then((error, response) =&gt; {\n      455 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:452:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_28:::The PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid status should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Status&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      464 |         status: \&quot;WELL\&quot;,\n      465 |       })\n    &gt; 466 |       .expect(400)\n          |        ^\n      467 |       .expect(\&quot;Invalid Todo Status\&quot;)\n      468 |       .then((error, response) =&gt; {\n      469 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:466:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_29:::The PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid priority should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Priority&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      477 |         priority: \&quot;slfianei\&quot;,\n      478 |       })\n    &gt; 479 |       .expect(400)\n          |        ^\n      480 |       .expect(\&quot;Invalid Todo Priority\&quot;)\n      481 |       .then((error, response) =&gt; {\n      482 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:479:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n\n  ● :::NJSCADOQBS_TEST_SUITE_1:::Tests for Operations on Todo Application database › :::NJSCADOQBS_TEST_30:::The PUT request to the path &#x27;/todos/:todoId/&#x27; with invalid category should return &#x27;400&#x27; as status code and &#x27;Invalid Todo Category&#x27; text as a response to the request\n\n    expected 400 \&quot;Bad Request\&quot;, got 200 \&quot;OK\&quot;\n\n      491 |         category: \&quot;2021/??/AS\&quot;,\n      492 |       })\n    &gt; 493 |       .expect(400)\n          |        ^\n      494 |       .expect(\&quot;Invalid Todo Category\&quot;)\n      495 |       .then((error, response) =&gt; {\n      496 |         done();\n\n      at Object.&lt;anonymous&gt; (index.test.js:493:8)\n      ----\n      at Test.Object.&lt;anonymous&gt;.Test._assertStatus (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:296:12)\n      at node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:80:15\n      at Test.Object.&lt;anonymous&gt;.Test._assertFunction (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:311:11)\n      at Test.Object.&lt;anonymous&gt;.Test.assert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:201:21)\n      at Server.localAssert (node_modules/.pnpm/supertest@6.1.3/node_modules/supertest/lib/test.js:159:12)\n&quot;
+    }
+  ],
+  &quot;wasInterrupted&quot;: false
+}</div></body></html>
