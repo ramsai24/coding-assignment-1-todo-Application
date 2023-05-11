@@ -297,16 +297,16 @@ app.post("/todos/", async (request, response) => {
 
     response.send("Todo Successfully Added");
   } else {
-    if (status === undefined) {
+    if (status !== "TO DO") {
       response.status(400);
       response.send("Invalid Todo Status");
-    } else if (priority === undefined) {
+    } else if (priority !== "LOW") {
       response.status(400);
       response.send("Invalid Todo Priority");
-    } else if (category === undefined) {
+    } else if (category !== "HOME") {
       response.status(400);
       response.send("Invalid Todo Category");
-    } else if (dueDate === undefined) {
+    } else if (isValid(new Date(dueDate)) === false) {
       response.status(400);
       response.send("Invalid Due Date");
     }
