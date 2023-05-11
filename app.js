@@ -243,7 +243,7 @@ app.get("/agenda/", async (request, response) => {
   const { date } = request.query;
   console.log(date);
 
-  if (date !== undefined) {
+  if (date.length === dateLen) {
     const getTodoItemQuery = `
     SELECT * FROM todo WHERE due_date LIKE '${date}';`;
 
@@ -274,32 +274,47 @@ app.post("/todos/", async (request, response) => {
 
   console.log(id, todo, priority, status, category, dueDate);
 
-  if (status !== "TO DO" || status !== "IN PROGRESS" || status !== "DONE") {
+  if (
+    status === undefined &&
+    priority !== undefined &&
+    category !== undefined &&
+    dueDate !== undefined
+  ) {
     response.status(400);
     response.send("Invalid Todo Status");
   } else if (
-    priority !== "HIGH" ||
-    priority !== "MEDIUM" ||
-    priority !== "LOW"
+    status !== undefined &&
+    priority === undefined &&
+    category !== undefined &&
+    dueDate !== undefined
   ) {
     response.status(400);
     response.send("Invalid Todo Priority");
   } else if (
-    category !== "WORK" ||
-    category !== "HOME" ||
-    category !== "LEARNING"
+    status !== undefined &&
+    priority !== undefined &&
+    category === undefined &&
+    dueDate !== undefined
   ) {
     response.status(400);
     response.send("Invalid Todo Category");
-  } else if (dueDate.length !== dateLen) {
+  } else if (
+    status !== undefined &&
+    priority !== undefined &&
+    category !== undefined &&
+    dueDate === undefined
+  ) {
     response.status(400);
     response.send("Invalid Due Date");
-  } else {
+  } else if (
+    status !== undefined &&
+    priority !== undefined &&
+    category !== undefined &&
+    dueDate !== undefined
+  ) {
     const createTodoQuery = `
-    INSERT INTO 
-            todo (id, todo, priority, status, category, due_date) 
-        VALUES 
-                    (${id}, '${todo}', '${priority}', '${status}', '${category}', '${dueDate}');`;
+    INSERT INTO todo (id, todo, priority, status, category, due_date) 
+    VALUES (${id}, '${todo}', '${priority}', '${status}', '${category}', '${dueDate}');`;
 
     const updateTodoDB = await db.run(createTodoQuery);
 
