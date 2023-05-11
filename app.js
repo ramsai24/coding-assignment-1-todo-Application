@@ -8,6 +8,8 @@ const sqlite3 = require("sqlite3");
 
 const format = require("date-fns/format");
 
+const isValid = require("date-fns/isValid");
+
 console.log(format(new Date(2023, 4, 1), "yyyy-M-d"));
 
 let dateLen = "2023-04-01".length;
@@ -243,9 +245,12 @@ app.get("/agenda/", async (request, response) => {
   const { date } = request.query;
   console.log(date);
 
-  if (date.length === dateLen) {
+  if (isValid(new Date(date))) {
     const getTodoItemQuery = `
-    SELECT * FROM todo WHERE due_date LIKE '${date}';`;
+    SELECT * FROM todo WHERE due_date LIKE '${format(
+      new Date(date),
+      "yyyy-MM-dd"
+    )}';`;
 
     const specificAllTodo = await db.all(getTodoItemQuery);
 
@@ -314,7 +319,10 @@ app.post("/todos/", async (request, response) => {
   ) {
     const createTodoQuery = `
     INSERT INTO todo (id, todo, priority, status, category, due_date) 
-    VALUES (${id}, '${todo}', '${priority}', '${status}', '${category}', '${dueDate}');`;
+    VALUES (${id}, '${todo}', '${priority}', '${status}', '${category}', '${format(
+      new Date(dueDate),
+      "yyyy-MM-dd"
+    )}');`;
 
     const updateTodoDB = await db.run(createTodoQuery);
 
@@ -385,9 +393,12 @@ app.put("/todos/:todoId", async (request, response) => {
 
   //scenario 5
   else if (dueDate !== undefined) {
-    if (dueDate.length === dateLen) {
+    if (new Date(dueDate)) {
       const dueDateQuery = `
-      UPDATE todo SET due_date = "${dueDate}" WHERE id = ${todoId};`;
+      UPDATE todo SET due_date = "${format(
+        new Date(dueDate),
+        "yyyy-MM-dd"
+      )}" WHERE id = ${todoId};`;
 
       await db.run(dueDateQuery);
       response.send("Due Date Updated");
