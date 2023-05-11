@@ -280,55 +280,45 @@ app.post("/todos/", async (request, response) => {
   console.log(id, todo, priority, status, category, dueDate);
 
   if (
-    status === undefined &&
-    priority !== undefined &&
-    category !== undefined &&
+    status !== undefined ||
+    priority !== undefined ||
+    category !== undefined ||
     dueDate !== undefined
   ) {
-    response.status(400);
-    response.send("Invalid Todo Status");
-  } else if (
-    status !== undefined &&
-    priority === undefined &&
-    category !== undefined &&
-    dueDate !== undefined
-  ) {
-    response.status(400);
-    response.send("Invalid Todo Priority");
-  } else if (
-    status !== undefined &&
-    priority !== undefined &&
-    category === undefined &&
-    dueDate !== undefined
-  ) {
-    response.status(400);
-    response.send("Invalid Todo Category");
-  } else if (
-    status !== undefined &&
-    priority !== undefined &&
-    category !== undefined &&
-    dueDate === undefined
-  ) {
-    response.status(400);
-    response.send("Invalid Due Date");
-  } else if (
-    status !== undefined &&
-    priority !== undefined &&
-    category !== undefined &&
-    dueDate !== undefined
-  ) {
-    const createTodoQuery = `
+    if (status === "TO DO" || status === "IN PROGRESS" || status === "DONE") {
+      response.status(400);
+      response.send("Invalid Todo Status");
+    } else if (
+      priority === "HIGH" ||
+      priority === "MEDIUM" ||
+      priority === "LOW"
+    ) {
+      response.status(400);
+      response.send("Invalid Todo Priority");
+    } else if (
+      category === "WORK" ||
+      category === "HOME" ||
+      category === "LEARNING"
+    ) {
+      response.status(400);
+      response.send("Invalid Todo Category");
+    } else if (new Date(dueDate)) {
+      response.status(400);
+      response.send("Invalid Due Date");
+    } else {
+      const createTodoQuery = `
     INSERT INTO todo (id, todo, priority, status, category, due_date) 
     VALUES (${id}, '${todo}', '${priority}', '${status}', '${category}', '${format(
-      new Date(dueDate),
-      "yyyy-MM-dd"
-    )}');`;
+        new Date(dueDate),
+        "yyyy-MM-dd"
+      )}');`;
 
-    const updateTodoDB = await db.run(createTodoQuery);
+      const updateTodoDB = await db.run(createTodoQuery);
 
-    console.log(updateTodoDB.lastID);
+      console.log(updateTodoDB.lastID);
 
-    response.send("Todo Successfully Added");
+      response.send("Todo Successfully Added");
+    }
   }
 });
 
@@ -393,7 +383,8 @@ app.put("/todos/:todoId", async (request, response) => {
 
   //scenario 5
   else if (dueDate !== undefined) {
-    if (new Date(dueDate)) {
+    console.log(isValid(new Date(dueDate)));
+    if (isValid(new Date(dueDate))) {
       const dueDateQuery = `
       UPDATE todo SET due_date = "${format(
         new Date(dueDate),
