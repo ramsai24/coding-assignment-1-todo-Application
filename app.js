@@ -278,6 +278,10 @@ app.post("/todos/", async (request, response) => {
   const { id, todo, priority, status, category, dueDate } = request.body;
 
   console.log(id, todo, priority, status, category, dueDate);
+  let statusItemsList = ["TO DO", "IN PROGRESS", "DONE"];
+  let priorityList = ["HIGH", "MEDIUM", "LOW"];
+  let categoryList = ["WORK", "HOME", "LEARNING"];
+
   if (
     (status === "TO DO" || status === "IN PROGRESS" || status === "DONE") &&
     (priority === "HIGH" || priority === "MEDIUM" || priority === "LOW") &&
@@ -297,13 +301,13 @@ app.post("/todos/", async (request, response) => {
 
     response.send("Todo Successfully Added");
   } else {
-    if (status !== "TO DO") {
+    if (!statusItemsList.includes(status)) {
       response.status(400);
       response.send("Invalid Todo Status");
-    } else if (priority !== "LOW") {
+    } else if (!priorityList.includes(priority)) {
       response.status(400);
       response.send("Invalid Todo Priority");
-    } else if (category !== "HOME") {
+    } else if (!categoryList.includes(category)) {
       response.status(400);
       response.send("Invalid Todo Category");
     } else if (isValid(new Date(dueDate)) === false) {
