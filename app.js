@@ -310,7 +310,7 @@ app.post("/todos/", async (request, response) => {
     } else if (!categoryList.includes(category)) {
       response.status(400);
       response.send("Invalid Todo Category");
-    } else if (isValid(new Date(date)) === false) {
+    } else if (isValid(new Date(dueDate)) === false) {
       response.status(400);
       response.send("Invalid Due Date");
     }
